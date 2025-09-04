@@ -1,0 +1,32 @@
+Ok(Message(
+    [Segment("MSH", [
+        #(1, Field("MSH", [#(1, Component("MSH", [#(1, Subcomponent("MSH"))]))])), 
+        #(2, Field("", [#(1, Component("", [#(1, Subcomponent(""))])), #(2, Component("_\\", [#(1, Subcomponent("_\\")), #(2, Subcomponent(""))]))])), 
+        #(3, Field("ZorgDomein", [#(1, Component("ZorgDomein", [#(1, Subcomponent("ZorgDomein"))]))])), 
+        #(4, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(5, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(6, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(7, Field("20160324163509+0100", [#(1, Component("20160324163509+0100", [#(1, Subcomponent("20160324163509+0100"))]))])), 
+        #(8, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(9, Field("ORU", [#(1, Component("ORU", [#(1, Subcomponent("ORU"))])), #(2, Component("R01", [#(1, Subcomponent("R01"))]))])), 
+        #(10, Field("ZD200046119", [#(1, Component("ZD200046119", [#(1, Subcomponent("ZD200046119"))]))])), 
+        #(11, Field("P", [#(1, Component("P", [#(1, Subcomponent("P"))]))])), 
+        #(12, Field("2.4", [#(1, Component("2.4", [#(1, Subcomponent("2.4"))]))]))
+        ]
+    ), 
+    Segment("PID", [
+        #(0, Field("PID", [#(1, Component("PID", [#(1, Subcomponent("PID"))]))])), 
+        #(1, Field("1", [#(1, Component("1", [#(1, Subcomponent("1"))]))])), 
+        #(2, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(3, Field("", [#(1, Component("", [#(1, Subcomponent(""))])), #(2, Component("", [#(1, Subcomponent(""))])), #(3, Component("", [#(1, Subcomponent(""))])), #(4, Component("NLMINBIZA", [#(1, Subcomponent("NLMINBIZA"))])), #(5, Component("NNNLD", [#(1, Subcomponent("NNNLD"))]))])), 
+        #(4, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(5, Field("de Mannaam&de&Mannaam", [#(1, Component("de Mannaam", [#(1, Subcomponent("de Mannaam")), #(2, Subcomponent("de")), #(3, Subcomponent("Mannaam"))])), #(2, Component("G", [#(1, Subcomponent("G"))])), #(3, Component("A", [#(1, Subcomponent("A"))])), #(4, Component("", [#(1, Subcomponent(""))])), #(5, Component("", [#(1, Subcomponent(""))])), #(6, Component("", [#(1, Subcomponent(""))])), #(7, Component("L", [#(1, Subcomponent("L"))]))])), 
+        #(6, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(7, Field("20000101", [#(1, Component("20000101", [#(1, Subcomponent("20000101"))]))])), 
+        #(8, Field("M", [#(1, Component("M", [#(1, Subcomponent("M"))]))])), 
+        #(9, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(10, Field("", [#(1, Component("", [#(1, Subcomponent(""))]))])), 
+        #(11, Field("StraatnaamPatient 666", [#(1, Component("StraatnaamPatient 666", [#(1, Subcomponent("StraatnaamPatient 666"))]))]))
+        ]
+    )
+]))
