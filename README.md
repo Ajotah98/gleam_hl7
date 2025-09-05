@@ -30,6 +30,45 @@ pub fn main() {
     Ok(parsed) -> // Work with parsed message
     Error(err) -> // Handle error
   }
+
+  // Some examples I did while creating this before they became tests:
+    let hl7_message =
+    "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666"
+  hl7_message
+  |> parse_message
+  |> result.unwrap(Message(list.new()))
+  |> echo
+
+  hl7_message
+  |> parse_message
+  |> result.unwrap(Message(list.new()))
+  |> get_segment("MSH")
+  |> get_field(7)
+  |> get_component(1)
+  |> get_subcomponent(1)
+  |> echo
+
+  hl7_message
+  |> parse_message
+  |> result.unwrap(Message(list.new()))
+  |> get("MSH.7.1")
+  |> result.unwrap("")
+  |> echo
+
+  hl7_message
+  |> parse_message
+  |> result.unwrap(Message(list.new()))
+  |> get("PID.3.4")
+  |> result.unwrap("")
+  |> echo
+
+  hl7_message
+  |> parse_message
+  |> result.unwrap(Message(list.new()))
+  |> get("MSH.5.4.3.2.1")
+  |> result.unwrap("It failed")
+  |> echo
+
 }
 ```
 
@@ -38,7 +77,8 @@ pub fn main() {
 - [ ] Implement proper error handling
 - [ ] Add message validation
 - [ ] Support message encoding/escaping
-- [ ] Implement field, component and subcomponent accessors
+- [x] Implement field, component and subcomponent accessors
+- [x] Implement a _get_ accessor with HL7 common format (MSH.5.1, PID.3.4.1, etc.)
 - [ ] Support repeating fields
 - [ ] Add support for custom segment definitions
 - [ ] Implement message builder

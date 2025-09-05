@@ -1,13 +1,14 @@
 import gleeunit
+import hl7
 
 pub fn main() -> Nil {
   gleeunit.main()
 }
 
-// gleeunit test functions end in `_test`
-pub fn hello_world_test() {
-  let name = "Joe"
-  let greeting = "Hello, " <> name <> "!"
+pub fn parse_message_test() {
+  todo
+}
 
-  assert greeting == "Hello, Joe!"
+pub fn parse_message_should_fail_test() {
+  todo
 }
