@@ -32,8 +32,7 @@ pub fn main() {
   }
 
   // Some examples I did while creating this before they became tests:
-    let hl7_message =
-    "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666"
+  let hl7_message ="MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666"
   hl7_message
   |> parse_message
   |> result.unwrap(Message(list.new()))
