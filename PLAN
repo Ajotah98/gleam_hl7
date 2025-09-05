@@ -1,0 +1,3 @@
+For next session:
+    - Refactor and distribute in different modules, not in a single file
+    - Create some tests into test/test
