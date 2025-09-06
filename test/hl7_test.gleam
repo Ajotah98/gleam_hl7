@@ -1,8 +1,9 @@
+import gleam/dict
 import gleam/result
 import gleeunit
 import hl7/get
 import hl7/parse
-import hl7/types
+import hl7/types.{Component, Field, Message, Segment, Subcomponent}
 
 pub fn main() -> Nil {
   gleeunit.main()
@@ -16,6 +17,325 @@ pub fn parse_message_test() {
     |> parse.message
     |> result.unwrap(types.empty_message())
   }
+  let message =
+    Message([
+      Segment(
+        "MSH",
+        dict.from_list([
+          #(
+            1,
+            Field(
+              "MSH",
+              dict.from_list([
+                #(
+                  1,
+                  Component("MSH", dict.from_list([#(1, Subcomponent("MSH"))])),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            2,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(
+                  2,
+                  Component(
+                    "_\\",
+                    dict.from_list([
+                      #(1, Subcomponent("_\\")),
+                      #(2, Subcomponent("")),
+                    ]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            3,
+            Field(
+              "ZorgDomein",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "ZorgDomein",
+                    dict.from_list([#(1, Subcomponent("ZorgDomein"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            4,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            5,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            6,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            7,
+            Field(
+              "20160324163509+0100",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "20160324163509+0100",
+                    dict.from_list([#(1, Subcomponent("20160324163509+0100"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            8,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            9,
+            Field(
+              "ORU",
+              dict.from_list([
+                #(
+                  1,
+                  Component("ORU", dict.from_list([#(1, Subcomponent("ORU"))])),
+                ),
+                #(
+                  2,
+                  Component("R01", dict.from_list([#(1, Subcomponent("R01"))])),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            10,
+            Field(
+              "ZD200046119",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "ZD200046119",
+                    dict.from_list([#(1, Subcomponent("ZD200046119"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            11,
+            Field(
+              "P",
+              dict.from_list([
+                #(1, Component("P", dict.from_list([#(1, Subcomponent("P"))]))),
+              ]),
+            ),
+          ),
+          #(
+            12,
+            Field(
+              "2.4",
+              dict.from_list([
+                #(
+                  1,
+                  Component("2.4", dict.from_list([#(1, Subcomponent("2.4"))])),
+                ),
+              ]),
+            ),
+          ),
+        ]),
+      ),
+      Segment(
+        "PID",
+        dict.from_list([
+          #(
+            0,
+            Field(
+              "PID",
+              dict.from_list([
+                #(
+                  1,
+                  Component("PID", dict.from_list([#(1, Subcomponent("PID"))])),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            1,
+            Field(
+              "1",
+              dict.from_list([
+                #(1, Component("1", dict.from_list([#(1, Subcomponent("1"))]))),
+              ]),
+            ),
+          ),
+          #(
+            2,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            3,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(2, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(3, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(
+                  4,
+                  Component(
+                    "NLMINBIZA",
+                    dict.from_list([#(1, Subcomponent("NLMINBIZA"))]),
+                  ),
+                ),
+                #(
+                  5,
+                  Component(
+                    "NNNLD",
+                    dict.from_list([#(1, Subcomponent("NNNLD"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            4,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            5,
+            Field(
+              "de Mannaam&de&Mannaam",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "de Mannaam",
+                    dict.from_list([
+                      #(1, Subcomponent("de Mannaam")),
+                      #(2, Subcomponent("de")),
+                      #(3, Subcomponent("Mannaam")),
+                    ]),
+                  ),
+                ),
+                #(2, Component("G", dict.from_list([#(1, Subcomponent("G"))]))),
+                #(3, Component("A", dict.from_list([#(1, Subcomponent("A"))]))),
+                #(4, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(5, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(6, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+                #(7, Component("L", dict.from_list([#(1, Subcomponent("L"))]))),
+              ]),
+            ),
+          ),
+          #(
+            6,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            7,
+            Field(
+              "20000101",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "20000101",
+                    dict.from_list([#(1, Subcomponent("20000101"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          #(
+            8,
+            Field(
+              "M",
+              dict.from_list([
+                #(1, Component("M", dict.from_list([#(1, Subcomponent("M"))]))),
+              ]),
+            ),
+          ),
+          #(
+            9,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            10,
+            Field(
+              "",
+              dict.from_list([
+                #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
+              ]),
+            ),
+          ),
+          #(
+            11,
+            Field(
+              "StraatnaamPatient 666",
+              dict.from_list([
+                #(
+                  1,
+                  Component(
+                    "StraatnaamPatient 666",
+                    dict.from_list([#(1, Subcomponent("StraatnaamPatient 666"))]),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ]),
+      ),
+    ])
+
+  assert result == message
 }
 
 pub fn parse_message_should_fail_test() {

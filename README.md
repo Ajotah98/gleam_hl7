@@ -73,15 +73,15 @@ pub fn main() {
 
 ## TODO
 - [x] First implementation to destructure an HL7v2 message into Gleam indexed lists
-- [ ] Implement proper error handling
-- [ ] Add message validation
+- [x] Implement proper error handling
+- [x] Add message validation
 - [ ] Support message encoding/escaping
 - [x] Implement field, component and subcomponent accessors
 - [x] Implement a _get_ accessor with HL7 common format (MSH.5.1, PID.3.4.1, etc.)
 - [ ] Support repeating fields
 - [ ] Add support for custom segment definitions
 - [ ] Implement message builder
-- [ ] Add comprehensive test suite
+- [x] Add comprehensive test suite
 - [ ] Add documentation and examples
 - [ ] Support for different HL7 versions (such as XML ones...)
 
