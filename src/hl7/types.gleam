@@ -1,3 +1,7 @@
+//// Type definition for HL7 messages and their parts.
+//// See https://hl7-definition.caristix.com/v2 for reference.
+//// 
+
 import gleam/dict.{type Dict}
 import gleam/list
 

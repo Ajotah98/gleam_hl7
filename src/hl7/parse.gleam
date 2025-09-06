@@ -19,7 +19,8 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import types
+import hl7/get
+import hl7/types
 
 pub fn message(input: String) -> Result(types.Message, String) {
   let delimiters: types.Delimiters =
@@ -38,8 +39,8 @@ pub fn message(input: String) -> Result(types.Message, String) {
 
   case segments {
     // todo better error handling
-    [] -> Error("Bad HL7 format")
-    _ -> Ok(types.Message(segments))
+    [] -> Error("No segments found")
+    _ -> validate_message(types.Message(segments))
   }
 }
 
@@ -90,4 +91,28 @@ pub fn component(input: String, delimiters: types.Delimiters) -> types.Component
 
 pub fn subcomponent(input: String) -> types.Subcomponent {
   types.Subcomponent(input)
+}
+
+pub fn validate_message(message: types.Message) -> Result(types.Message, String) {
+  let segment = {
+    message |> get.from_segment("MSH")
+  }
+
+  let message_control_id = {
+    segment
+    |> get.from_field(10)
+    |> get.from_component(1)
+    |> get.from_subcomponent(1)
+    |> get.subcomponent_to_string
+  }
+
+  case segment {
+    types.Segment("", _) -> Error("MSH segment not found")
+    _ -> {
+      case message_control_id {
+        "" -> Error("Message control ID (MSH-10) not found")
+        _ -> Ok(message)
+      }
+    }
+  }
 }

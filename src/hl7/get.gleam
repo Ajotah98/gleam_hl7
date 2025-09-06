@@ -30,7 +30,7 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
-import types
+import hl7/types
 
 pub fn from_segment(msg: types.Message, segment_name: String) -> types.Segment {
   case msg {
