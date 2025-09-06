@@ -12,9 +12,7 @@ This project is in early development stages. Currently, it can parse basic HL7 v
 
 ## Installation
 
-```sh
-gleam add hl7@1
-```
+This package is not published **yet** to Hex as is in early development. So, if you want to use it or modify it, you will need to download the project and copy paste the /src gleam files into your /src and the /test files into your /tests
 
 ## Usage
 
@@ -26,7 +24,7 @@ import hl7
 pub fn main() {
   let message = "MSH|^~\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||Smith^John" // Extracted from here: https://integrator.zorgdomein.com/hl7v2-specs/sample-oru-pdf-referral-letter/
   
-  case hl7.parse_message(message) {
+  case hl7.parse.message(message) {
     Ok(parsed) -> // Work with parsed message
     Error(err) -> // Handle error
   }
@@ -34,41 +32,42 @@ pub fn main() {
   // Some examples I did while creating this before they became tests:
   
   let hl7_message ="MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666"
+  let hl7_message =
+    "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666"
   hl7_message
-  |> parse_message
-  |> result.unwrap(Message(list.new()))
+  |> parse.message
+  |> result.unwrap(types.empty_message())
   |> echo
 
   hl7_message
-  |> parse_message
-  |> result.unwrap(Message(list.new()))
-  |> get_segment("MSH")
-  |> get_field(7)
-  |> get_component(1)
-  |> get_subcomponent(1)
+  |> parse.message
+  |> result.unwrap(types.empty_message())
+  |> get.from_segment("MSH")
+  |> get.from_field(7)
+  |> get.from_component(1)
+  |> get.from_subcomponent(1)
   |> echo
 
   hl7_message
-  |> parse_message
-  |> result.unwrap(Message(list.new()))
-  |> get("MSH.7.1")
+  |> parse.message
+  |> result.unwrap(types.empty_message())
+  |> get.from("MSH.7.1")
   |> result.unwrap("")
   |> echo
 
   hl7_message
-  |> parse_message
-  |> result.unwrap(Message(list.new()))
-  |> get("PID.3.4")
+  |> parse.message
+  |> result.unwrap(types.empty_message())
+  |> get.from("PID.3.4")
   |> result.unwrap("")
   |> echo
 
   hl7_message
-  |> parse_message
-  |> result.unwrap(Message(list.new()))
-  |> get("MSH.5.4.3.2.1")
+  |> parse.message
+  |> result.unwrap(types.empty_message())
+  |> get.from("MSH.5.4.3.2.1")
   |> result.unwrap("It failed")
   |> echo
-
 }
 ```
 

@@ -76,6 +76,11 @@ pub fn subcomponent_to_string(subcomponent: types.Subcomponent) {
   }
 }
 
+/// Get a value from a parsed HL7 message using a string accessor like "MSH.7.1" (Segment.Field.Component.Subcomponent) Also, subcomponents are optional (if not specified, the first subcomponent will be getted).
+/// If the int values are not valid integers, it will access the first coincidence (it will use 1 as index).
+/// Example: "PID.X.Y" is the same as "PID.1.1.1"
+/// If the accessor has too few or too many arguments, an error will be returned.
+/// Returns a Result with the value or an error message.
 pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
   let parsed = string.split(accessor, ".")
   case parsed {
@@ -95,7 +100,7 @@ pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
       |> from_component(int.parse(component) |> result.unwrap(1))
       |> from_subcomponent(int.parse(subcomponent) |> result.unwrap(1))
       |> subcomponent_to_string
-      |> Ok()
+      |> Ok
     }
     [_] | [] | [_, _] -> Error("Few arguments provided")
     [_, _, _, _, _, ..] -> Error("Too much args")
