@@ -1,3 +1,4 @@
 For next session:
-    - Refactor and distribute in different modules, not in a single file
-    - Create some tests into test/test
+    - Add freakin repetitions (im having nightmares on how to implement them)
+    - Add documentation and more extensive examples
+    - Probaly start working on an MLLP implementation for TCP connections
