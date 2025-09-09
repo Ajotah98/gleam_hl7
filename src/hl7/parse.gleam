@@ -36,6 +36,11 @@ pub fn message(input: String) -> Result(types.Message, String) {
     input
     |> string.split("\r")
     |> list.map(segment(_, delimiters))
+    |> list.filter(fn(s) {
+      case s {
+        types.Segment(name, _) -> name != ""
+      }
+    })
 
   case segments {
     // todo better error handling
