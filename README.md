@@ -84,6 +84,7 @@ pub fn main() {
 - [x] Add comprehensive test suite
 - [ ] Add documentation and examples
 - [ ] Support repeating fields
+- [ ] Support segment repetitions
 
 ### Future things that would be good to have
 - [ ] Support for different HL7 versions (such as XML ones...)
