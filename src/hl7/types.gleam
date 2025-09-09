@@ -51,3 +51,7 @@ pub fn empty_field() -> Field {
 pub fn empty_component() -> Component {
   Component("", dict.new())
 }
+
+pub fn default_delimiters() -> Delimiters {
+  Delimiters("|", "^", "~", "\\", "&")
+}
