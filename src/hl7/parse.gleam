@@ -100,7 +100,7 @@ pub fn subcomponent(input: String) -> types.Subcomponent {
 
 pub fn validate_message(message: types.Message) -> Result(types.Message, String) {
   let segment = {
-    message |> get.from_segment("MSH")
+    message |> get.from_segment("MSH", 1)
   }
 
   let message_control_id = {

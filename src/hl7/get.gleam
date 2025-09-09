@@ -25,14 +25,18 @@
 //// // -> "200202150930"
 //// ```  
 
-import gleam/dict
+import gleam/dict.{type Dict}
 import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
 import hl7/types
 
-pub fn from_segment(msg: types.Message, segment_name: String) -> types.Segment {
+pub fn from_segment(
+  msg: types.Message,
+  segment_name: String,
+  segment_rep: Int,
+) -> types.Segment {
   case msg {
     types.Message(segments) ->
       segments
@@ -41,8 +45,39 @@ pub fn from_segment(msg: types.Message, segment_name: String) -> types.Segment {
           types.Segment(name, _) -> name == segment_name
         }
       })
-      |> list.first
+      |> list.find(fn(s) { repetition_aux(s, segment_rep) })
       |> result.unwrap(types.Segment("", dict.new()))
+  }
+}
+
+fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
+  case segment {
+    types.Segment(name, fields) -> {
+      case name {
+        "MSH" -> True
+        _ -> {
+          let field_accessor_val =
+            dict.values(fields)
+            |> list.filter(fn(f) {
+              case f {
+                types.Field(_, component) -> {
+                  let number =
+                    from_component(f, 1)
+                    |> from_subcomponent(1)
+                    |> subcomponent_to_string
+                    |> int.parse
+                    |> result.unwrap(1)
+                  number == segment_rep
+                }
+              }
+            })
+          case field_accessor_val {
+            [] -> False
+            _ -> True
+          }
+        }
+      }
+    }
   }
 }
 
@@ -86,7 +121,7 @@ pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
   case parsed {
     [segment, field, component] -> {
       msg
-      |> from_segment(segment)
+      |> from_segment(segment, 1)
       |> from_field(int.parse(field) |> result.unwrap(1))
       |> from_component(int.parse(component) |> result.unwrap(1))
       |> from_subcomponent(1)
@@ -95,7 +130,7 @@ pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
     }
     [segment, field, component, subcomponent] -> {
       msg
-      |> from_segment(segment)
+      |> from_segment(segment, 1)
       |> from_field(int.parse(field) |> result.unwrap(1))
       |> from_component(int.parse(component) |> result.unwrap(1))
       |> from_subcomponent(int.parse(subcomponent) |> result.unwrap(1))
