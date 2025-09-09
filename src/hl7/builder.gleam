@@ -42,24 +42,6 @@ fn build_field(field: Field, delimiters: Delimiters) -> String {
   }
 }
 
-// fn build_repetition(
-//   repetition: types.Repetitions,
-//   delimiters: types.Delimiters,
-// ) -> String {
-//   case repetition {
-//     types.Repetitions(fields) -> {
-//       let fields_str =
-//         fields
-//         |> list.first()
-//         |> result.unwrap(dict.new())
-//         |> dict.values()
-//         |> list.map(build_component(_, delimiters))
-//         |> string.join(delimiters.repetition_delimiter)
-//       fields_str
-//     }
-//   }
-// }
-
 fn build_component(component: Component, delimiters: Delimiters) -> String {
   case component {
     types.Component(_, subcomponents) -> {
