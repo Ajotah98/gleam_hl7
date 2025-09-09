@@ -32,6 +32,21 @@ import gleam/result
 import gleam/string
 import hl7/types
 
+/// Pass a message and get the segment name with segment ocurrence n
+/// Example:
+/// If you want the PID segment:
+/// ```gleam
+/// let msg = ...
+/// msg
+/// |> get.from_segment("PID",1) // This will search the segment "PID|1|..."
+/// ```
+/// 
+/// But if you want the 4th OBX, you can do:
+/// ```gleam
+/// let msg = ...
+/// msg
+/// |> get.from_segment("OBX",4) // This will search the segment "OBX|4|..."
+/// ```
 pub fn from_segment(
   msg: types.Message,
   segment_name: String,
