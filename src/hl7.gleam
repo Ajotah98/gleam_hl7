@@ -12,9 +12,9 @@ pub fn main() {
     |> result.unwrap(types.empty_message())
     |> echo
 
-  let obr_segment = get.from_segment(parsed, "OBX", 3) |> echo
-  let obr_field = get.from_field(obr_segment, 3) |> echo
-  let obr_component = get.from_component(obr_field, 1) |> echo
-  let obr_subcomponent = get.from_subcomponent(obr_component, 1) |> echo
-  let obr_value = get.subcomponent_to_string(obr_subcomponent) |> echo
+  let obx_segment = get.from_segment(parsed, "OBX", 3) |> echo
+  let obx_field = get.from_field(obx_segment, 3) |> echo
+  let obx_component = get.from_component(obx_field, 1) |> echo
+  let obx_subcomponent = get.from_subcomponent(obx_component, 1) |> echo
+  let obx_value = get.subcomponent_to_string(obx_subcomponent) |> echo
 }

@@ -25,7 +25,7 @@
 //// // -> "200202150930"
 //// ```  
 
-import gleam/dict.{type Dict}
+import gleam/dict
 import gleam/int
 import gleam/list
 import gleam/result
@@ -33,6 +33,7 @@ import gleam/string
 import hl7/types
 
 /// Pass a message and get the segment name with segment ocurrence n
+/// 
 /// Example:
 /// If you want the PID segment:
 /// ```gleam
@@ -47,6 +48,8 @@ import hl7/types
 /// msg
 /// |> get.from_segment("OBX",4) // This will search the segment "OBX|4|..."
 /// ```
+/// 
+/// For MSH, you should only use **1** (It won't matter as MSH is **always** unique)
 pub fn from_segment(
   msg: types.Message,
   segment_name: String,
@@ -75,7 +78,7 @@ fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
             dict.values(fields)
             |> list.filter(fn(f) {
               case f {
-                types.Field(_, component) -> {
+                types.Field(_, _) -> {
                   let number =
                     from_component(f, 1)
                     |> from_subcomponent(1)
