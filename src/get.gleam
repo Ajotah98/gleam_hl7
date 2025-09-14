@@ -49,7 +49,7 @@ import types
 /// |> get.from_segment("OBX",4) // This will search the segment "OBX|4|..."
 /// ```
 /// 
-/// For MSH, you should use "get.from_segment" (as is indexed by 1 by default)
+/// For MSH (or if you only want the first repetition segment), you should use "get.from_segment" (as is indexed by 1 by default)
 pub fn from_segment_indexed(
   msg: types.Message,
   segment_name: String,
