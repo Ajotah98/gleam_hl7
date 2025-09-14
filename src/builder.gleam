@@ -31,7 +31,7 @@ fn build_segment(segment: Segment, delimiters: Delimiters) -> String {
 
 fn build_field(field: Field, delimiters: Delimiters) -> String {
   case field {
-    types.Field(_, components) -> {
+    types.FieldUnit(_, components) -> {
       let components_str =
         components
         |> dict.values()
@@ -39,6 +39,7 @@ fn build_field(field: Field, delimiters: Delimiters) -> String {
         |> string.join(delimiters.component_delimiter)
       components_str
     }
+    types.FieldRepetitions(_) -> todo
   }
 }
 

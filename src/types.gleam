@@ -14,7 +14,8 @@ pub type Segment {
 }
 
 pub type Field {
-  Field(String, Dict(Int, Component))
+  FieldRepetitions(List(Field))
+  FieldUnit(String, Dict(Int, Component))
 }
 
 pub type Component {
@@ -45,7 +46,7 @@ pub fn empty_segment() -> Segment {
 }
 
 pub fn empty_field() -> Field {
-  Field("", dict.new())
+  FieldUnit("", dict.new())
 }
 
 pub fn empty_component() -> Component {

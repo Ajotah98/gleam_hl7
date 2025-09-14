@@ -67,17 +67,41 @@ pub fn segment(input: String, delimiters: types.Delimiters) -> types.Segment {
 }
 
 pub fn field(input: String, delimiters: types.Delimiters) -> types.Field {
-  let components = string.split(input, delimiters.component_delimiter)
-  let name = list.first(components) |> result.unwrap("")
+  let has_reps = string.contains(input, delimiters.repetition_delimiter)
+  case has_reps {
+    False -> {
+      let components = string.split(input, delimiters.component_delimiter)
+      parse_components(components, delimiters)
+    }
+    True -> parse_repetitions(input, delimiters)
+  }
+}
+
+fn parse_repetitions(input: String, delimiters: types.Delimiters) -> types.Field {
+  let repetitions = string.split(input, delimiters.repetition_delimiter)
+  let reps =
+    repetitions
+    |> list.map(fn(part) {
+      let components = string.split(part, delimiters.component_delimiter)
+      components |> parse_components(delimiters)
+    })
+  types.FieldRepetitions(reps)
+}
+
+fn parse_components(
+  splitted_components: List(String),
+  delimiters: types.Delimiters,
+) {
+  let name = list.first(splitted_components) |> result.unwrap("")
   let components =
-    components
+    splitted_components
     |> list.map(component(_, delimiters))
     |> list.index_map(fn(component: types.Component, index: Int) {
       // types.Field accessors should always start at index 1 according to HL7v2 standard
       #(index + 1, component)
     })
     |> dict.from_list
-  types.Field(name, components)
+  types.FieldUnit(name, components)
 }
 
 pub fn component(input: String, delimiters: types.Delimiters) -> types.Component {

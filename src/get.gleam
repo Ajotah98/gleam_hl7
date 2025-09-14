@@ -78,7 +78,7 @@ fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
             dict.values(fields)
             |> list.filter(fn(f) {
               case f {
-                types.Field(_, _) -> {
+                types.FieldUnit(_, _) -> {
                   let number =
                     from_component(f, 1)
                     |> from_subcomponent(1)
@@ -87,6 +87,7 @@ fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
                     |> result.unwrap(1)
                   number == segment_rep
                 }
+                types.FieldRepetitions(_) -> todo
               }
             })
           case field_accessor_val {
@@ -107,15 +108,28 @@ pub fn from_field(segment: types.Segment, field_index: Int) -> types.Field {
   case segment {
     types.Segment(_, fields) ->
       dict.get(fields, field_index)
-      |> result.unwrap(types.Field("", dict.new()))
+      |> result.unwrap(types.FieldUnit("", dict.new()))
   }
 }
 
 pub fn from_component(field: types.Field, component_index: Int) {
   case field {
-    types.Field(_, components) ->
+    types.FieldUnit(_, components) ->
       dict.get(components, component_index)
       |> result.unwrap(types.Component("", dict.new()))
+    types.FieldRepetitions(reps) -> {
+      let first_unit =
+        reps
+        |> list.first
+        |> result.unwrap(types.FieldUnit("", dict.new()))
+      case first_unit {
+        types.FieldUnit(_, components) ->
+          dict.get(components, component_index)
+          |> result.unwrap(types.Component("", dict.new()))
+        types.FieldRepetitions(_) ->
+          panic as "A repetition inside a repetition???"
+      }
+    }
   }
 }
 

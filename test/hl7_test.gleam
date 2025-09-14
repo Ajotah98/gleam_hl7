@@ -4,7 +4,9 @@ import gleam/dict
 import gleam/result
 import gleeunit
 import parse
-import types.{Component, Field, Message, Segment, Subcomponent}
+import types.{
+  Component, FieldRepetitions, FieldUnit, Message, Segment, Subcomponent,
+}
 
 const hl7_message = "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666\r"
 
@@ -25,7 +27,7 @@ pub fn parse_message_test() {
         dict.from_list([
           #(
             1,
-            Field(
+            FieldUnit(
               "MSH",
               dict.from_list([
                 #(
@@ -37,7 +39,7 @@ pub fn parse_message_test() {
           ),
           #(
             2,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -56,7 +58,7 @@ pub fn parse_message_test() {
           ),
           #(
             3,
-            Field(
+            FieldUnit(
               "ZorgDomein",
               dict.from_list([
                 #(
@@ -71,7 +73,7 @@ pub fn parse_message_test() {
           ),
           #(
             4,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -80,7 +82,7 @@ pub fn parse_message_test() {
           ),
           #(
             5,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -89,7 +91,7 @@ pub fn parse_message_test() {
           ),
           #(
             6,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -98,7 +100,7 @@ pub fn parse_message_test() {
           ),
           #(
             7,
-            Field(
+            FieldUnit(
               "20160324163509+0100",
               dict.from_list([
                 #(
@@ -113,7 +115,7 @@ pub fn parse_message_test() {
           ),
           #(
             8,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -122,7 +124,7 @@ pub fn parse_message_test() {
           ),
           #(
             9,
-            Field(
+            FieldUnit(
               "ORU",
               dict.from_list([
                 #(
@@ -138,7 +140,7 @@ pub fn parse_message_test() {
           ),
           #(
             10,
-            Field(
+            FieldUnit(
               "ZD200046119",
               dict.from_list([
                 #(
@@ -153,7 +155,7 @@ pub fn parse_message_test() {
           ),
           #(
             11,
-            Field(
+            FieldUnit(
               "P",
               dict.from_list([
                 #(1, Component("P", dict.from_list([#(1, Subcomponent("P"))]))),
@@ -162,7 +164,7 @@ pub fn parse_message_test() {
           ),
           #(
             12,
-            Field(
+            FieldUnit(
               "2.4",
               dict.from_list([
                 #(
@@ -179,7 +181,7 @@ pub fn parse_message_test() {
         dict.from_list([
           #(
             0,
-            Field(
+            FieldUnit(
               "PID",
               dict.from_list([
                 #(
@@ -191,7 +193,7 @@ pub fn parse_message_test() {
           ),
           #(
             1,
-            Field(
+            FieldUnit(
               "1",
               dict.from_list([
                 #(1, Component("1", dict.from_list([#(1, Subcomponent("1"))]))),
@@ -200,7 +202,7 @@ pub fn parse_message_test() {
           ),
           #(
             2,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -209,7 +211,7 @@ pub fn parse_message_test() {
           ),
           #(
             3,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -234,7 +236,7 @@ pub fn parse_message_test() {
           ),
           #(
             4,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -243,7 +245,7 @@ pub fn parse_message_test() {
           ),
           #(
             5,
-            Field(
+            FieldUnit(
               "de Mannaam&de&Mannaam",
               dict.from_list([
                 #(
@@ -268,7 +270,7 @@ pub fn parse_message_test() {
           ),
           #(
             6,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -277,7 +279,7 @@ pub fn parse_message_test() {
           ),
           #(
             7,
-            Field(
+            FieldUnit(
               "20000101",
               dict.from_list([
                 #(
@@ -292,7 +294,7 @@ pub fn parse_message_test() {
           ),
           #(
             8,
-            Field(
+            FieldUnit(
               "M",
               dict.from_list([
                 #(1, Component("M", dict.from_list([#(1, Subcomponent("M"))]))),
@@ -301,7 +303,7 @@ pub fn parse_message_test() {
           ),
           #(
             9,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -310,7 +312,7 @@ pub fn parse_message_test() {
           ),
           #(
             10,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -319,7 +321,7 @@ pub fn parse_message_test() {
           ),
           #(
             11,
-            Field(
+            FieldUnit(
               "StraatnaamPatient 666",
               dict.from_list([
                 #(
@@ -403,7 +405,7 @@ pub fn build_test() {
         dict.from_list([
           #(
             1,
-            Field(
+            FieldUnit(
               "MSH",
               dict.from_list([
                 #(
@@ -415,7 +417,7 @@ pub fn build_test() {
           ),
           #(
             2,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -434,7 +436,7 @@ pub fn build_test() {
           ),
           #(
             3,
-            Field(
+            FieldUnit(
               "ZorgDomein",
               dict.from_list([
                 #(
@@ -449,7 +451,7 @@ pub fn build_test() {
           ),
           #(
             4,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -458,7 +460,7 @@ pub fn build_test() {
           ),
           #(
             5,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -467,7 +469,7 @@ pub fn build_test() {
           ),
           #(
             6,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -476,7 +478,7 @@ pub fn build_test() {
           ),
           #(
             7,
-            Field(
+            FieldUnit(
               "20160324163509+0100",
               dict.from_list([
                 #(
@@ -491,7 +493,7 @@ pub fn build_test() {
           ),
           #(
             8,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -500,7 +502,7 @@ pub fn build_test() {
           ),
           #(
             9,
-            Field(
+            FieldUnit(
               "ORU",
               dict.from_list([
                 #(
@@ -516,7 +518,7 @@ pub fn build_test() {
           ),
           #(
             10,
-            Field(
+            FieldUnit(
               "ZD200046119",
               dict.from_list([
                 #(
@@ -531,7 +533,7 @@ pub fn build_test() {
           ),
           #(
             11,
-            Field(
+            FieldUnit(
               "P",
               dict.from_list([
                 #(1, Component("P", dict.from_list([#(1, Subcomponent("P"))]))),
@@ -540,7 +542,7 @@ pub fn build_test() {
           ),
           #(
             12,
-            Field(
+            FieldUnit(
               "2.4",
               dict.from_list([
                 #(
@@ -557,7 +559,7 @@ pub fn build_test() {
         dict.from_list([
           #(
             0,
-            Field(
+            FieldUnit(
               "PID",
               dict.from_list([
                 #(
@@ -569,7 +571,7 @@ pub fn build_test() {
           ),
           #(
             1,
-            Field(
+            FieldUnit(
               "1",
               dict.from_list([
                 #(1, Component("1", dict.from_list([#(1, Subcomponent("1"))]))),
@@ -578,7 +580,7 @@ pub fn build_test() {
           ),
           #(
             2,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -587,7 +589,7 @@ pub fn build_test() {
           ),
           #(
             3,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -612,7 +614,7 @@ pub fn build_test() {
           ),
           #(
             4,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -621,7 +623,7 @@ pub fn build_test() {
           ),
           #(
             5,
-            Field(
+            FieldUnit(
               "de Mannaam&de&Mannaam",
               dict.from_list([
                 #(
@@ -646,7 +648,7 @@ pub fn build_test() {
           ),
           #(
             6,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -655,7 +657,7 @@ pub fn build_test() {
           ),
           #(
             7,
-            Field(
+            FieldUnit(
               "20000101",
               dict.from_list([
                 #(
@@ -670,7 +672,7 @@ pub fn build_test() {
           ),
           #(
             8,
-            Field(
+            FieldUnit(
               "M",
               dict.from_list([
                 #(1, Component("M", dict.from_list([#(1, Subcomponent("M"))]))),
@@ -679,7 +681,7 @@ pub fn build_test() {
           ),
           #(
             9,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -688,7 +690,7 @@ pub fn build_test() {
           ),
           #(
             10,
-            Field(
+            FieldUnit(
               "",
               dict.from_list([
                 #(1, Component("", dict.from_list([#(1, Subcomponent(""))]))),
@@ -697,7 +699,7 @@ pub fn build_test() {
           ),
           #(
             11,
-            Field(
+            FieldUnit(
               "StraatnaamPatient 666",
               dict.from_list([
                 #(

@@ -11,7 +11,6 @@ pub fn main() {
   let parsed =
     parse.message(hl7_oru_complete_message)
     |> result.unwrap(types.empty_message())
-    |> echo
 
   let lab_test =
     get.from_segment_indexed(parsed, "OBX", 3)
