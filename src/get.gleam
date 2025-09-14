@@ -30,6 +30,7 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
+import glearray
 import types
 
 /// Pass a message and get the segment name with segment ocurrence n
@@ -87,7 +88,8 @@ fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
                     |> result.unwrap(1)
                   number == segment_rep
                 }
-                types.FieldRepetitions(_) -> todo
+                types.FieldRepetitions(_) ->
+                  panic as "Field 2 (accessor) shouldn't have repetitions."
               }
             })
           case field_accessor_val {
@@ -113,6 +115,14 @@ pub fn from_field(segment: types.Segment, field_index: Int) -> types.Field {
 }
 
 pub fn from_component(field: types.Field, component_index: Int) {
+  from_component_rep(field, component_index, 1)
+}
+
+pub fn from_component_rep(
+  field: types.Field,
+  component_index: Int,
+  repetition_at: Int,
+) {
   case field {
     types.FieldUnit(_, components) ->
       dict.get(components, component_index)
@@ -120,8 +130,7 @@ pub fn from_component(field: types.Field, component_index: Int) {
     types.FieldRepetitions(reps) -> {
       let first_unit =
         reps
-        |> list.first
-        // todo: let access the repetition you want and not only the first one
+        |> glearray.get(repetition_at)
         |> result.unwrap(types.FieldUnit("", dict.new()))
       case first_unit {
         types.FieldUnit(_, components) ->

@@ -4,6 +4,7 @@
 
 import gleam/dict.{type Dict}
 import gleam/list
+import glearray.{type Array}
 
 pub type Message {
   Message(List(Segment))
@@ -14,7 +15,7 @@ pub type Segment {
 }
 
 pub type Field {
-  FieldRepetitions(List(Field))
+  FieldRepetitions(Array(Field))
   FieldUnit(String, Dict(Int, Component))
 }
 

@@ -4,9 +4,7 @@ import gleam/dict
 import gleam/result
 import gleeunit
 import parse
-import types.{
-  Component, FieldRepetitions, FieldUnit, Message, Segment, Subcomponent,
-}
+import types.{Component, FieldUnit, Message, Segment, Subcomponent}
 
 const hl7_message = "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666\r"
 
