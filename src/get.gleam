@@ -30,7 +30,7 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
-import hl7/types
+import types
 
 /// Pass a message and get the segment name with segment ocurrence n
 /// 
@@ -49,8 +49,8 @@ import hl7/types
 /// |> get.from_segment("OBX",4) // This will search the segment "OBX|4|..."
 /// ```
 /// 
-/// For MSH, you should only use **1** (It won't matter as MSH is **always** unique)
-pub fn from_segment(
+/// For MSH, you should use "get.from_segment" (as is indexed by 1 by default)
+pub fn from_segment_indexed(
   msg: types.Message,
   segment_name: String,
   segment_rep: Int,
@@ -99,6 +99,10 @@ fn repetition_aux(segment: types.Segment, segment_rep: Int) -> Bool {
   }
 }
 
+pub fn from_segment(msg: types.Message, segment_name: String) {
+  from_segment_indexed(msg, segment_name, 1)
+}
+
 pub fn from_field(segment: types.Segment, field_index: Int) -> types.Field {
   case segment {
     types.Segment(_, fields) ->
@@ -123,10 +127,37 @@ pub fn from_subcomponent(component: types.Component, subcomponent_index: Int) {
   }
 }
 
-pub fn subcomponent_to_string(subcomponent: types.Subcomponent) {
+pub fn subcomponent_to_string(subcomponent: types.Subcomponent) -> String {
   case subcomponent {
     types.Subcomponent(value) -> value
   }
+}
+
+/// Returns the first subcomponent into a String. Useful to avoid this:
+/// ```gleam
+/// let my_msg = ...
+///  
+/// let my_comp = 
+/// // Instead of doing this:
+///   my_msg
+///   |> get.from_segment("OBX",1)
+///   |> get.from_field(3)
+///   |> get.from_component(1)
+///   |> get.from_subcomponent(1)
+///   |> get.subcomponent_to_string
+/// 
+/// // You can do:
+///   my_msg
+///   |> get.from_segment("OBX",1)
+///   |> get.from_field(3)
+///   |> get.from_component(1)
+///   |> get.component_to_string
+/// 
+/// ```
+pub fn component_to_string(component: types.Component) -> String {
+  component
+  |> from_subcomponent(1)
+  |> subcomponent_to_string
 }
 
 /// Get a value from a parsed HL7 message using a string accessor like "MSH.7.1" (Segment.Field.Component.Subcomponent) Also, subcomponents are optional (if not specified, the first subcomponent will be getted).
@@ -139,7 +170,7 @@ pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
   case parsed {
     [segment, field, component] -> {
       msg
-      |> from_segment(segment, 1)
+      |> from_segment_indexed(segment, 1)
       |> from_field(int.parse(field) |> result.unwrap(1))
       |> from_component(int.parse(component) |> result.unwrap(1))
       |> from_subcomponent(1)
@@ -148,7 +179,7 @@ pub fn from(msg: types.Message, accessor: String) -> Result(String, String) {
     }
     [segment, field, component, subcomponent] -> {
       msg
-      |> from_segment(segment, 1)
+      |> from_segment_indexed(segment, 1)
       |> from_field(int.parse(field) |> result.unwrap(1))
       |> from_component(int.parse(component) |> result.unwrap(1))
       |> from_subcomponent(int.parse(subcomponent) |> result.unwrap(1))

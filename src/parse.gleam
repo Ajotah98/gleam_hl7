@@ -15,12 +15,12 @@
 //// |> get.subcomponent_to_string
 //// // -> "200202150930"
 
+import get
 import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import hl7/get
-import hl7/types
+import types
 
 pub fn message(input: String) -> Result(types.Message, String) {
   let delimiters: types.Delimiters =
@@ -100,7 +100,7 @@ pub fn subcomponent(input: String) -> types.Subcomponent {
 
 pub fn validate_message(message: types.Message) -> Result(types.Message, String) {
   let segment = {
-    message |> get.from_segment("MSH", 1)
+    message |> get.from_segment_indexed("MSH", 1)
   }
 
   let message_control_id = {

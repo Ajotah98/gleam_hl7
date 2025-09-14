@@ -1,10 +1,10 @@
+import builder
+import get
 import gleam/dict
 import gleam/result
 import gleeunit
-import hl7/builder
-import hl7/get
-import hl7/parse
-import hl7/types.{Component, Field, Message, Segment, Subcomponent}
+import parse
+import types.{Component, Field, Message, Segment, Subcomponent}
 
 const hl7_message = "MSH|^_\\&|ZorgDomein||||20160324163509+0100||ORU^R01|ZD200046119|P|2.4\rPID|1||^^^NLMINBIZA^NNNLD||de Mannaam&de&Mannaam^G^A^^^^L||20000101|M|||StraatnaamPatient 666\r"
 
@@ -354,7 +354,7 @@ pub fn get_from_extended_test() {
     hl7_message
     |> parse.message
     |> result.unwrap(types.empty_message())
-    |> get.from_segment("MSH", 1)
+    |> get.from_segment_indexed("MSH", 1)
     |> get.from_field(7)
     |> get.from_component(1)
     |> get.from_subcomponent(1)

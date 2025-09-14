@@ -1,7 +1,7 @@
 import gleam/dict
 import gleam/list
 import gleam/string
-import hl7/types.{
+import types.{
   type Component, type Delimiters, type Field, type Message, type Segment,
   type Subcomponent,
 }
