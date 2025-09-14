@@ -121,6 +121,7 @@ pub fn from_component(field: types.Field, component_index: Int) {
       let first_unit =
         reps
         |> list.first
+        // todo: let access the repetition you want and not only the first one
         |> result.unwrap(types.FieldUnit("", dict.new()))
       case first_unit {
         types.FieldUnit(_, components) ->
