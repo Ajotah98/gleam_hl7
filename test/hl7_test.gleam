@@ -3,6 +3,7 @@ import get
 import gleam/dict
 import gleam/result
 import gleeunit
+import gleeunit/should
 import parse
 import types.{Component, FieldUnit, Message, Segment, Subcomponent}
 
@@ -335,7 +336,8 @@ pub fn parse_message_test() {
         ]),
       ),
     ])
-  assert result == message
+
+  result |> should.equal(message)
 }
 
 pub fn parse_message_should_fail_test() {
@@ -344,9 +346,9 @@ pub fn parse_message_should_fail_test() {
     |> parse.message
     |> result.unwrap(types.empty_message())
     |> get.from("MSH.5.4.3.2.1")
-    |> result.unwrap("It failed")
   }
-  assert result == "It failed"
+
+  result |> should.be_error()
 }
 
 pub fn get_from_extended_test() {
@@ -359,7 +361,8 @@ pub fn get_from_extended_test() {
     |> get.from_component(1)
     |> get.from_subcomponent(1)
   }
-  assert result == types.Subcomponent("20160324163509+0100")
+
+  result |> should.equal(types.Subcomponent("20160324163509+0100"))
 }
 
 pub fn get_from_test() {
@@ -370,7 +373,8 @@ pub fn get_from_test() {
     |> get.from("PID.3.4")
     |> result.unwrap("")
   }
-  assert result == "NLMINBIZA"
+
+  result |> should.equal("NLMINBIZA")
 }
 
 pub fn get_from_2_test() {
@@ -379,9 +383,9 @@ pub fn get_from_2_test() {
     |> parse.message
     |> result.unwrap(types.empty_message())
     |> get.from("PID.5.1.2")
-    |> result.unwrap("")
   }
-  assert result == "de"
+
+  result |> should.be_ok() |> should.equal("de")
 }
 
 pub fn get_from_3_test() {
@@ -390,9 +394,8 @@ pub fn get_from_3_test() {
     |> parse.message
     |> result.unwrap(types.empty_message())
     |> get.from("MSH.7.1")
-    |> result.unwrap("")
   }
-  assert result == "20160324163509+0100"
+  result |> should.be_ok() |> should.equal("20160324163509+0100")
 }
 
 pub fn build_test() {
@@ -717,5 +720,6 @@ pub fn build_test() {
   let message =
     hl7_parsed
     |> builder.build_message(types.Delimiters("|", "^", "_", "\\", "&"))
-  assert message == result
+
+  result |> should.equal(message)
 }
