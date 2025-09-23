@@ -20,7 +20,6 @@ import gleam/dict
 import gleam/list
 import gleam/result
 import gleam/string
-import glearray
 import types
 
 pub fn message(input: String) -> Result(types.Message, String) {
@@ -82,11 +81,11 @@ fn parse_repetitions(input: String, delimiters: types.Delimiters) -> types.Field
   let repetitions = string.split(input, delimiters.repetition_delimiter)
   let reps =
     repetitions
-    |> list.map(fn(part) {
+    |> list.index_map(fn(part, index) {
       let components = string.split(part, delimiters.component_delimiter)
-      components |> parse_components(delimiters)
+      #(index, components |> parse_components(delimiters))
     })
-    |> glearray.from_list
+    |> dict.from_list
   types.FieldRepetitions(reps)
 }
 

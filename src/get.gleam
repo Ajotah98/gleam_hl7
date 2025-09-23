@@ -30,7 +30,6 @@ import gleam/int
 import gleam/list
 import gleam/result
 import gleam/string
-import glearray
 import types
 
 /// Pass a message and get the segment name with segment ocurrence n
@@ -130,7 +129,7 @@ pub fn from_component_rep(
     types.FieldRepetitions(reps) -> {
       let first_unit =
         reps
-        |> glearray.get(repetition_at)
+        |> dict.get(repetition_at)
         |> result.unwrap(types.FieldUnit("", dict.new()))
       case first_unit {
         types.FieldUnit(_, components) ->
